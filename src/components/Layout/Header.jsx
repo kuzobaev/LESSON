@@ -1,5 +1,5 @@
 import React from "react";
-import mealsImage from "../../assets/wp7029400-fast-food-4k-desktop-wallpapers.jpg";
+import mealsImage from "../../assets/20483612.jpeg";
 import HeaderCartButton from "./HeaderCartButton";
 import classes from "./Header.module.css";
 

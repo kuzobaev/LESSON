@@ -1,5 +1,6 @@
 import React from "react";
-import mealsImage from "../../assets/3007281.jpg";
+import mealsImage from "../../assets/wp7029400-fast-food-4k-desktop-wallpapers.jpg";
+import HeaderCartButton from "./HeaderCartButton";
 import classes from "./Header.module.css";
 
 function Header() {
@@ -7,7 +8,7 @@ function Header() {
     <>
       <header className={classes.header}>
         <h1>React Meals</h1>
-        <button></button>
+        <HeaderCartButton/>
       </header>
       <div className={classes["main-image"]}>
         <img src={mealsImage} alt="food" />

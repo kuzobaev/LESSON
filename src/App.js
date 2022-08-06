@@ -1,12 +1,9 @@
-import React from 'react';
-
+import React from "react";
 
 function App() {
-  return (
-    <div>
-    MASTER  
-    </div>
-  );
+  return <div>MASTER
+    
+  </div>
 }
 
 export default App;

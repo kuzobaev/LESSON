@@ -1,12 +1,16 @@
-import React from 'react'
-import Modal from '../Modal/Modal'
+import React, { useContext } from "react";
+import Modal from "../Modal/Modal";
+import  CartContext from "../../Store/cartContext";
 
 function Cart() {
+  const date = useContext(CartContext);
+  console.log(date)
   return (
     <div>
-        <Modal/>
+
+      <Modal />
     </div>
-  )
+  );
 }
 
-export default Cart
+export default Cart;

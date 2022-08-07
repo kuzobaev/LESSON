@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import styles from "./Modal.module.css";
 import { createPortal } from "react-dom";
 
@@ -7,6 +7,8 @@ const Backdrop = (props) => {
 };
 
 const ModalOverly = (props) => {
+      
+
   return (
     <div className={styles.modal}>
       <div className={styles.content}>
@@ -20,7 +22,9 @@ const ModalOverly = (props) => {
   );
 };
 
+
 function Modal(props) {
+    const data = useContext
   const portalElement = document.getElementById("overlay");
 
   return (

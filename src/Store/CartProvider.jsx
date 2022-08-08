@@ -4,8 +4,10 @@ import CartContext from "./cartContext";
 const cartReducer = (state, action) => {
   switch (action.type) {
     case "ADD_FOOD":
-      return { items: [...state.items, action.food] , totalAmount: state.totalAmount + action.items.totalAmount};
-      break;
+      return {
+        items: [...state.items, action.food],
+        totalAmount: state.totalAmount + action.food.totalAmount,
+      };
     case "DELETE_FOOD":
       return {
         items: state.filter((el) => {
@@ -14,12 +16,11 @@ const cartReducer = (state, action) => {
       };
     case "CLEAR_FOOD":
       return { type: [], totalAmount: 0 };
-
-    default:
-      state;
+      
+     return state;
   }
 
-  return state;
+
 };
 
 function CartProvider(props) {
@@ -28,7 +29,7 @@ function CartProvider(props) {
     totalAmount: 0,
   });
 
-  const addItem = () => {
+  const addItem = (item) => {
     dispatchOrderFood({ type: "ADD_FOOD", food: item });
   };
   const removeItems = (id) => {

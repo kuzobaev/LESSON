@@ -3,34 +3,25 @@ import styles from "./Modal.module.css";
 import { createPortal } from "react-dom";
 
 const Backdrop = (props) => {
-  return <div className={styles.backdrop} />;
+  return <div onClick={props.onCloseCart} className={styles.backdrop} />;
 };
 
 const ModalOverly = (props) => {
-      
-
   return (
     <div className={styles.modal}>
-      <div className={styles.content}>
-        <h3>Modal Title</h3>
-      </div>
-      <div>
-        <button>CLOSE</button>
-        <button>ORDER</button>
-      </div>
+      <div className={styles.content}>{props.children}</div>
     </div>
   );
 };
 
-
 function Modal(props) {
-    const data = useContext
+
   const portalElement = document.getElementById("overlay");
 
   return (
     <>
-      {createPortal(<Backdrop />, portalElement)}
-      {createPortal(<ModalOverly />, portalElement)}
+      {createPortal(<Backdrop onCloseCart={props.onCloseCart} />, portalElement)}
+      {createPortal(<ModalOverly>{props.children}</ModalOverly>, portalElement)}
     </>
   );
 }

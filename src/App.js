@@ -1,9 +1,7 @@
 import React from "react";
 
 function App() {
-  return <div>
-    session 2
-  </div>
+  return   <div></div>;
 }
 
 export default App;

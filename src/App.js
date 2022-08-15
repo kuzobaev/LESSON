@@ -1,53 +1,84 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import MoviesList from "./components/MoviesList";
 import "./App.css";
+import AddMovie from "./components/AddMovie";
 
 function App() {
   const [movies, setMovies] = useState([]);
   const [isLodaing, setIsLodaing] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const fetchMoviesHandler = async () => {
-    setIsLodaing(true);
-    const response = await fetch("https://swapi.dev/api/films");
-    const data = await response.json();
-    const transformedMovies = data.results.map((movieData) => {
-      return {
-        id: movieData.episode_id,
-        title: movieData.title,
-        description: movieData.opening_crawl,
-        releaseDate: movieData.release_date,
-      };
-    });
-    setMovies(transformedMovies);
+    try {
+      setErrorMessage(null);
+      setIsLodaing(true);
+      const response = await fetch(
+        "https://movie-db-3ab76-default-rtdb.firebaseio.com/movies.json"
+      );
+      const data = await response.json();
+      console.log(data);
+      const loadedMovies = [];
+
+      for (const key in data) {
+        loadedMovies.push({
+          id: key,
+          title: data[key].title,
+          description: data[key].openingText,
+          releaseDate: data[key].releaseDate,
+        });
+      }
+
+      setMovies(loadedMovies);
+    } catch (error) {
+      setErrorMessage(error.message);
+    }
+    setIsLodaing(false);
+  };
+  useEffect(() => {
+    fetchMoviesHandler();
+  }, []);
+
+  let content = <p>Found no movies.</p>;
+
+  if (movies.length > 0) {
+    content = <MoviesList movies={movies} />;
+  }
+
+  if (errorMessage) {
+    content = <p style={{ color: "red" }}>{errorMessage}</p>;
+  }
+
+  if (isLodaing) {
+    content = <p>Lodaing...</p>;
+  }
+
+  const addMovieHandler = async (movie) => {
+    const response = await fetch(
+      "https://movie-db-3ab76-default-rtdb.firebaseio.com/movies.json",
+      {
+        method: "POST",
+        body: JSON.stringify(movie),
+        headers: {
+          "Content-type": "application/json",
+        },
+      }
+    );
+    await fetchMoviesHandler();
     setIsLodaing(false);
   };
 
-  // const dummyMovies = [
-  //   {
-  //     id: 1,
-  //     title: "Some Dummy Movie",
-  //     openingText: "This is the opening text of the movie",
-  //     releaseDate: "2021-05-18",
-  //   },
-  //   {
-  //     id: 2,
-  //     title: "Some Dummy Movie 2",
-  //     openingText: "This is the second opening text of the movie",
-  //     releaseDate: "2021-05-19",
-  //   },
-  // ];
-
   return (
     <React.Fragment>
+      {errorMessage && (
+        <section>
+          <button onClick={fetchMoviesHandler}>Try again</button>
+        </section>
+      )}
       <section>
-        <button onClick={fetchMoviesHandler}>Fetch Movies</button>
+        <AddMovie onAddMovie={addMovieHandler} />
       </section>
-      <section>
-        {!isLodaing && movies.length > 0 && <MoviesList movies={movies} />}
-        {!isLodaing && movies.length === 0 && <p>Found no movies.</p>}
-        {isLodaing && <p>Lodaing...</p>}
-      </section>
+      <section>{content}</section>
     </React.Fragment>
   );
 }

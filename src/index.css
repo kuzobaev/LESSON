@@ -9,3 +9,14 @@ html {
 body {
   margin: 0;
 }
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.App input {
+  width: 400px;
+  height: 130px;
+  font-size: 20px;
+  text-align: center;
+}

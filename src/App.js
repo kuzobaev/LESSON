@@ -1,10 +1,20 @@
-import React from "react";
+import { useEffect, useRef, useState } from "react";
 
-function App() {
-  return <div>
-    SESSION VOSKRESENIE 
-    
-  </div>
-}
+const App = () => {
+  const paragraphRef = useRef(null);
+
+  useEffect(() => {
+    navigator.
+    navigator.clipboard.readText().then((text) => {
+      paragraphRef.current.value = text;
+    });
+  }, []);
+
+  return (
+    <div className="App">
+      <input ref={paragraphRef}></input>
+    </div>
+  );
+};
 
 export default App;

@@ -7,8 +7,13 @@ import useFetch from "./hooks/use-hooks";
 function App() {
   const [tasks, setTasks] = useState([]);
 
+  const { isLoading, error, sendRequest: fetchTasks } = useFetch();
+
+
   const transformTasks = useCallback((tasksObject) => {
+
     const loadedTasks = [];
+
     for (const taskKey in tasksObject) {
       loadedTasks.push({
         id: taskKey,
@@ -18,14 +23,14 @@ function App() {
     setTasks(loadedTasks);
   }, []);
 
-  const { isLoading, error, sendRequest: fetchTasks } = useFetch();
 
   useEffect(() => {
     fetchTasks(
       { url: "https://todo-session-default-rtdb.firebaseio.com/tasks.json" },
       transformTasks
-    );
+    ); 
   }, [fetchTasks, transformTasks]);
+
 
   const taskAddHandler = (task) => {
     setTasks((prevTasks) => prevTasks.concat(task));

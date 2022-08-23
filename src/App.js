@@ -17,7 +17,8 @@ function App() {
         "https://movie-db-3ab76-default-rtdb.firebaseio.com/movies.json"
       );
       const data = await response.json();
-   
+      console.log(data)
+      
       const loadedMovies = [];
 
       for (const key in data) {

@@ -1,11 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap");
 
 * {
   box-sizing: border-box;
 }
 
 html {
-  font-family: 'Noto Sans JP', sans-serif;
+  font-family: "Noto Sans JP", sans-serif;
 }
 
 body {
@@ -20,6 +20,18 @@ body {
   border-radius: 12px;
   background-color: white;
   margin: 3rem auto;
+}
+
+button:hover,
+button:active {
+  background-color: #33059e;
+  border-color: #33059e;
+}
+
+button:disabled {
+  background-color: gray;
+  border-color: gray;
+  cursor: not-allowed;
 }
 
 .form-control {
@@ -71,12 +83,6 @@ button {
   padding: 0.5rem 1.5rem;
   border-radius: 4px;
   cursor: pointer;
-}
-
-button:hover,
-button:active {
-  background-color: #33059e;
-  border-color: #33059e;
 }
 
 .form-actions {

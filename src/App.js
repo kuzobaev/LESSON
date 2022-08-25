@@ -9,9 +9,7 @@ function App() {
 
   const { isLoading, error, sendRequest: fetchTasks } = useFetch();
 
-
   const transformTasks = useCallback((tasksObject) => {
-
     const loadedTasks = [];
 
     for (const taskKey in tasksObject) {
@@ -23,14 +21,12 @@ function App() {
     setTasks(loadedTasks);
   }, []);
 
-
   useEffect(() => {
     fetchTasks(
       { url: "https://todo-session-default-rtdb.firebaseio.com/tasks.json" },
       transformTasks
-    ); 
+    );
   }, [fetchTasks, transformTasks]);
-
 
   const taskAddHandler = (task) => {
     setTasks((prevTasks) => prevTasks.concat(task));

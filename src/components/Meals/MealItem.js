@@ -15,7 +15,6 @@ export const MealItem = (props) => {
       price: props.price,
       totalAmount:amount
     }
-    console.log(selectedFood);
     cartCtx.addItem(selectedFood)
   }
   return (

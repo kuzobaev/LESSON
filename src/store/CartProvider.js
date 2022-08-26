@@ -1,26 +1,57 @@
-import React from 'react';
-import { useReducer } from 'react';
-import CardContext from './Cart-context';
+import React from "react";
+import { useReducer } from "react";
+import CardContext from "./Cart-context";
 
 const cartReducer = (state, action) => {
-  switch (action.type) {
+  const existingCartItemIndex = state.items.findIndex(
+    (item) => item.id === action.food.id
+  );
 
-    case 'ADD_FOOD':
+  const existingCartItem = state.items[existingCartItemIndex];
+
+  switch (action.type) {
+    case "ADD_FOOD":
+      const updatedTotalAmount =
+        state.totalAmount + action.food.price * action.food.totalAmount;
+
+      let updatedItem;
+
+      let updatedItems;
+
+      if (existingCartItem) {
+        updatedItem = {
+          ...existingCartItem,
+          totalAmount: existingCartItem.totalAmount + action.food.totalAmount,
+        };
+        updatedItems = [...state.items];
+        updatedItems[existingCartItemIndex] = updatedItem;
+      } else {
+        updatedItem = { ...action.food };
+        updatedItems = state.items.concat(updatedItem);
+      }
+
       return {
-        items: [...state.items, action.food],
-        totalAmount: state.totalAmount + action.food.totalAmount,
+        items: updatedItems,
+        totalAmount: updatedTotalAmount,
       };
 
+    case "DELETE_FOOD":
+      const updatedTotalMinesAmount =
+        state.totalAmount - existingCartItemIndex.price;
 
-    case 'DELET_FOOD':
+      let updatedMinusItems;
+
+      if (existingCartItem.totalAmount === 1) {
+        updatedMinusItems = state.items.filter((item) => item.id !== action.id);
+      }
+
       return {
-        items: state.filter((el) => {
+        items: state.items.filter((el) => {
           return el.id !== action.id;
         }),
       };
 
-      
-    case 'CLEAR_CART':
+    case "CLEAR_CART":
       return { type: [], totalAmount: 0 };
     default:
       return state;
@@ -34,15 +65,15 @@ export const CartProvider = (props) => {
   });
 
   const addItem = (item) => {
-    dispatchOrderFood({ type: 'ADD_FOOD', food: item });
+    dispatchOrderFood({ type: "ADD_FOOD", food: item });
   };
 
   const removeItem = (id) => {
-    dispatchOrderFood({ type: 'DELETE_FOOD', id: id });
+    dispatchOrderFood({ type: "DELETE_FOOD", id: id });
   };
 
   const cleareCart = () => {
-    dispatchOrderFood({ type: 'CLEAR_CART' });
+    dispatchOrderFood({ type: "CLEAR_CART" });
   };
 
   const cartContext = {

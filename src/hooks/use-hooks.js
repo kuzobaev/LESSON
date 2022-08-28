@@ -12,9 +12,7 @@ const useFetch = () => {
       const response = await fetch(requestConfig.url, {
         method: requestConfig.method ? requestConfig.method : "GET",
         headers: requestConfig.headers ? requestConfig.headers : {},
-        body: JSON.stringify(requestConfig.body)
-          ? JSON.stringify(requestConfig.body)
-          : null,
+        body: requestConfig.method !== "GET" && requestConfig.body,
       });
 
       if (!response.ok) {

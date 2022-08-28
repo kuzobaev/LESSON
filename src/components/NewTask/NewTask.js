@@ -7,7 +7,6 @@ const NewTask = (props) => {
   const { isLoading, error, sendRequest: sendTaskRequest } = useFetch();
 
   const createTask = (taskText, data) => {
-   
     const generatedId = data.name; // firebase-specific => "name" contains generated id
     const createdTask = { id: generatedId, text: taskText };
 
@@ -22,7 +21,7 @@ const NewTask = (props) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: { text: taskText },
+        body: JSON.stringify({ text: taskText }),
       },
       createTask.bind(null, taskText)
     );

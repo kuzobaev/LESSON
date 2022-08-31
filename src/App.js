@@ -1,7 +1,7 @@
-import React from "react";
+import Counter from "./components/Counter";
 
 function App() {
-  return <div>redux</div>;
+  return <Counter />;
 }
 
 export default App;

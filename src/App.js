@@ -4,7 +4,7 @@ import fetchUsers from "./redux/asyncActions/asyncActions";
 
 function App() {
   const dispatch = useDispatch();
-  const users = useSelector((state) => {
+  const { users } = useSelector((state) => {
     return state;
   });
 
@@ -17,6 +17,8 @@ function App() {
       >
         GET USERS
       </button>
+
+      <div></div>
     </div>
   );
 }

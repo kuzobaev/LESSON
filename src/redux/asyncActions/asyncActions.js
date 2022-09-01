@@ -2,7 +2,7 @@ import { getUserAction } from "./actions";
 
 const fetchUsers = () => {
   return (dispatch) => {
-    fetch("https://jsonplaceholder.typicode.com/users")
+    fetch("https://reqres.in/api/users?page=2")
       .then((response) => response.json())
       .then((json) => dispatch(getUserAction(json)));
   };

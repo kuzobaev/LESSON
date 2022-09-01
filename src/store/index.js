@@ -1,25 +1,9 @@
-import { createStore } from "react";
+import { counterReducer } from "./rootReducer/rootReducer";
+import { applyMiddleware } from "redux";
+import thunk from "redux-thunk";
+import { createStore } from "redux";
 
-const counterState = {
-  counter: 0,
-};
 
-const counterReducer = (state = counterState, action) => {
-  if (action.type === "INCREMENT") {
-    return {
-      counter: state.counter + 1,
-    };
-  }
-
-  if (action.type === "DECREMENT") {
-    return {
-      counter: state.counter - 1,
-    };
-  }
-
-  return state;
-};
-
-const store = createStore(counterReducer);
+const store = createStore(counterReducer, applyMiddleware(thunk));
 
 export default store;

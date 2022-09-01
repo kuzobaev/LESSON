@@ -1,0 +1,7 @@
+MiddleWare -  
+npm install redux-thunk
+
+
+
+
+reducer функцияларга side Effect жаза албайбыз.

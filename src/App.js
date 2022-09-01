@@ -8,6 +8,7 @@ function App() {
     return state;
   });
 
+  console.log(users.data);
   return (
     <div>
       <button
@@ -18,7 +19,13 @@ function App() {
         GET USERS
       </button>
 
-      <div></div>
+      {/* {users.data.map((item) => {
+        return (
+          <div>
+     
+          </div>
+        );
+      })} */}
     </div>
   );
 }
